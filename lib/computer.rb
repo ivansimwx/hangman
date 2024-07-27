@@ -1,21 +1,26 @@
 # holds computer's word information and displays
 class Computer
-  attr_reader :name
+  attr_reader :name, :word, :guess_state
 
   def initialize
     @name = "Computer"
+    dictionary_source = "google-10000-english-no-swears.txt"
+    @dictionary = hangman_dictionary(dictionary_source)
+    @word = ""
   end
 
   def hangman_dictionary(dictionary_source)
-    lines = File.readlines(dictionary_source)
-    lines.map { |text| text.delete("\n").chars }
-    # lines is an array of words
-    # words is an array of words, broken down into array of characters
-    # p lines[0]
-    # p words[0]
+    lines = File.readlines(dictionary_source) # lines is an array of words
+    lines.map { |text| text.delete("\n").chars } # words is an array of words, broken down into array of characters
   end
 
-  def rand_word(dictionary)
-    dictionary.sample
+  def new_word
+    @word = @dictionary.sample
+    puts "\nA new #{@word.length}-letter word has been generated:"
+    @guess_state = Array.new(6, "_")
+  end
+
+  def update_word_state(word)
+    # to be defined
   end
 end

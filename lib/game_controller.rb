@@ -6,12 +6,26 @@ class GameController
   def initialize(player, computer)
     @player = player
     @computer = computer
-    dictionary_source = "google-10000-english-no-swears.txt"
-    @dictionary = @computer.hangman_dictionary(dictionary_source)
   end
 
   # lines = File.readlines(dictionary_source)
   def play
-    word = @computer.rand_word(@dictionary)
+    puts "\nHi #{@player.name}, welcome to Hangman!"
+    @computer.new_word
+    prints_guess_state
+    @player.guess_attempt
+    check_win?
+    # check win if player guess word, word is only considered if word length matches
+    # check win if player guess alphabet
+    # update word state
+    # @computer.display_word_state
+  end
+
+  def prints_guess_state
+    puts @computer.guess_state
+  end
+
+  def check_win?
+    # if @player.guess == @computer.word
   end
 end

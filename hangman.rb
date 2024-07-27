@@ -7,12 +7,7 @@ player = Player.new
 game = GameController.new(player, computer)
 game.play
 
-# start game
-# ask player if they want to load game
-# if no, randomly pick word from hangman_dictionary
-# initialise a display of blank space to represent the word length
-# player turn starts
-# player picks an alphabet or guesses the whole word
+
 # if guess alphabet, checks if alphabet exist
 #   if last char is filled, player wins
 #   if char exist, show where alphabet is positioned in the blank space
