@@ -22,7 +22,7 @@ class GameController
   end
 
   def prints_guess_state
-    puts @computer.guess_state
+    puts @computer.guess_state.join(" ")
   end
 
   def check_win?
