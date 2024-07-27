@@ -1,13 +1,14 @@
 
 # holds player's information and moves
 class Player
-  attr_reader :name, :guess_count
+  attr_reader :name, :guess_count, :guess_track
   attr_accessor :guess
 
   def initialize
     @name = "Player"
     @guess = ""
     @guess_count = 8 # max is 8 tries
+    @guess_track = []
   end
 
   def guess_attempt
@@ -16,6 +17,7 @@ class Player
       guess_get
       break if guess_valid?
     end
+    @guess_track.push(@guess)
   end
 
   def guess_get

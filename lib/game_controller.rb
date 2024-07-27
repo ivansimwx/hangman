@@ -12,9 +12,11 @@ class GameController
   def play
     puts "\nHi #{@player.name}, welcome to Hangman!"
     @computer.new_word
+    # puts @computer.word
     loop do
       prints_guess_state
       puts "\nYou have #{@player.guess_count} more guesses"
+      puts "\nYour guesses so far: #{@player.guess_track.join(',')}"
       @player.guess_attempt
       @computer.update_guess_state(@player.guess)
       break if gameover?
@@ -27,10 +29,11 @@ class GameController
 
   def gameover?
     if @player.guess == @computer.word.join || @computer.guess_state == @computer.word
-      puts "Congrats, you have won!"
+      puts "\nCongrats, you have won!"
       true
     elsif @player.guess_count == 0
-      puts "Sorry, you have been hung (lost)"
+      puts "\nSorry, you have been hung (lost)"
+      puts "\nThe word is <#{@computer.word.join}>"
       true
     end
   end
