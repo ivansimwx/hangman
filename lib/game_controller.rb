@@ -12,7 +12,6 @@ class GameController
   def play
     puts "\nHi #{@player.name}, welcome to Hangman!"
     @computer.new_word
-    puts @computer.word
     loop do
       prints_guess_state
       puts "\nYou have #{@player.guess_count} more guesses"
@@ -23,7 +22,7 @@ class GameController
   end
 
   def prints_guess_state
-    puts "\n #{@computer.guess_state.join(" ")}"
+    puts "\n #{@computer.guess_state.join(' ')}"
   end
 
   def gameover?
