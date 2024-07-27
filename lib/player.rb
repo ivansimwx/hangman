@@ -1,12 +1,13 @@
+
 # holds player's information and moves
 class Player
-  attr_reader :name
+  attr_reader :name, :guess_count
   attr_accessor :guess
 
   def initialize
     @name = "Player"
     @guess = ""
-    @guess_count = 0 # max is 8 tries
+    @guess_count = 8 # max is 8 tries
   end
 
   def guess_attempt
@@ -23,7 +24,7 @@ class Player
 
   def guess_valid?
     if @guess.match?(/[a-z]/)
-      @guess_count += 1
+      @guess_count -= 1
       true
     else
       puts "\nYou have provided an invalid guess, please try again"

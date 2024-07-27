@@ -1,6 +1,7 @@
 # holds computer's word information and displays
 class Computer
-  attr_reader :name, :word, :guess_state
+  attr_reader :name
+  attr_accessor :word, :guess_state
 
   def initialize
     @name = "Computer"
@@ -11,7 +12,7 @@ class Computer
 
   def hangman_dictionary(dictionary_source)
     lines = File.readlines(dictionary_source) # lines is an array of words
-    lines.map { |text| text.delete("\n").chars } # words is an array of words, broken down into array of characters
+    lines.map { |text| text.delete("\n").chars } # returns an array of words, broken down into array of characters
   end
 
   def new_word
@@ -20,7 +21,9 @@ class Computer
     @guess_state = Array.new(6, "_")
   end
 
-  def update_word_state(word)
-    # to be defined
+  def update_guess_state(guess)
+    return unless guess.length == 1
+
+    @word.each_with_index { |char, index| @guess_state[index] = guess if char == guess }
   end
 end
