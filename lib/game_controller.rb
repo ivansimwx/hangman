@@ -12,6 +12,7 @@ class GameController
   def play
     puts "\nHi #{@player.name}, welcome to Hangman!"
     @computer.new_word
+    puts @computer.word
     loop do
       prints_guess_state
       puts "\nYou have #{@player.guess_count} more guesses"

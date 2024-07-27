@@ -18,7 +18,7 @@ class Computer
   def new_word
     @word = @dictionary.sample
     puts "\nA new #{@word.length}-letter word has been generated:"
-    @guess_state = Array.new(6, "_")
+    @guess_state = Array.new(@word.length, "_")
   end
 
   def update_guess_state(guess)
