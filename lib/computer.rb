@@ -5,18 +5,11 @@ class Computer
 
   def initialize
     @name = "Computer"
-    dictionary_source = "google-10000-english-no-swears.txt"
-    @dictionary = hangman_dictionary(dictionary_source)
     @word = ""
   end
 
-  def hangman_dictionary(dictionary_source)
-    lines = File.readlines(dictionary_source) # lines is an array of words
-    lines.map { |text| text.delete("\n").chars } # returns an array of words, broken down into array of characters
-  end
-
-  def new_word
-    @word = @dictionary.sample
+  def new_word(dictionary)
+    @word = dictionary.sample
     puts "\nA new #{@word.length}-letter word has been generated:"
     @guess_state = Array.new(@word.length, "_")
   end

@@ -1,4 +1,3 @@
-
 # holds player's information and moves
 class Player
   attr_reader :name, :guess_count, :guess_track
@@ -31,5 +30,10 @@ class Player
     else
       puts "\nYou have provided an invalid guess, please try again"
     end
+  end
+
+  def save_game?
+    puts "\nWould you like to save the game? Input Y for YES, all other inputs will be taken as a No"
+    true if gets.chomp.to_s.downcase == "y"
   end
 end
