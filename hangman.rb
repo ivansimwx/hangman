@@ -1,16 +1,7 @@
-dictionary_source = "google-10000-english-no-swears.txt"
+require_relative "lib/computer"
+require_relative "lib/game_controller"
+require_relative "lib/player"
 
-def hangman_dictionary(dictionary_source)
-  lines = File.readlines(dictionary_source)
-  words = lines.map { |text| text.delete("\n").chars }
-  # lines is an array of words
-  # words is an array of words, broken down into array of characters
-  # p words
-  p lines[0]
-  p words[0]
-end
-
-dictionary = hangman_dictionary(dictionary_source)
 computer = Computer.new
 player = Player.new
 game = GameController.new(player, computer)
