@@ -30,7 +30,7 @@ class GameController
     if @player.guess == @computer.word.join || @computer.guess_state == @computer.word
       puts "Congrats, you have won!"
       true
-    elsif @player.guess_count == 8
+    elsif @player.guess_count == 0
       puts "Sorry, you have been hung (lost)"
       true
     end
