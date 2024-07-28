@@ -1,7 +1,6 @@
 # holds player's information and moves
 class Player
-  attr_reader :name, :guess_count, :guess_track
-  attr_accessor :guess
+  attr_accessor :name, :guess_count, :guess_track, :guess
 
   def initialize
     @name = "Player"
@@ -34,6 +33,11 @@ class Player
 
   def save_game?
     puts "\nWould you like to save the game? Input Y for YES, all other inputs will be taken as a No"
+    true if gets.chomp.to_s.downcase == "y"
+  end
+
+  def load_game?
+    puts "\nWould you like to load a previous saved game? Input Y for YES, all other inputs will be taken as a No"
     true if gets.chomp.to_s.downcase == "y"
   end
 end

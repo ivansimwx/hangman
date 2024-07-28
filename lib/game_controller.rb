@@ -1,9 +1,12 @@
 require_relative "player"
 require_relative "computer"
-require "yaml"
+require_relative "save_load"
 
 # controls flow of game and checks for end of game
 class GameController
+  include SaveLoad
+  attr_accessor :player, :computer
+
   def initialize(player, computer)
     @player = player
     @computer = computer
@@ -11,10 +14,20 @@ class GameController
     @dictionary = hangman_dictionary(dictionary_source)
   end
 
-  # lines = File.readlines(dictionary_source)
   def play
     puts "\nHi #{@player.name}, welcome to Hangman!"
-    @computer.new_word(@dictionary)
+    if @player.load_game?
+      if list_files(SAVED_DIRECTORY)
+        puts "Which file would you like to load?"
+        filename = gets.chomp.to_s
+        load_file(filename)
+      else
+        put "There are no saved files. A New Game will be started"
+        @computer.new_word(@dictionary)
+      end
+    else
+      @computer.new_word(@dictionary)
+    end
     # puts @computer.word
     loop do
       prints_guess_state
@@ -45,19 +58,5 @@ class GameController
       puts "\nThe word is <#{@computer.word.join}>"
       true
     end
-  end
-
-  def to_yaml
-    YAML.dump({
-      player: @player,
-      computer: @computer
-    })
-  end
-
-  def save_file
-    Dir.mkdir("saved_games") unless Dir.exist?("saved_games")
-    f = File.new "saved_games/save_file #{Time.new}", "w"
-    f.puts(to_yaml)
-    f.close
   end
 end

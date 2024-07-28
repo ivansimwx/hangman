@@ -1,7 +1,6 @@
 # holds computer's word information and displays
 class Computer
-  attr_reader :name
-  attr_accessor :word, :guess_state
+  attr_accessor :word, :guess_state, :name
 
   def initialize
     @name = "Computer"
