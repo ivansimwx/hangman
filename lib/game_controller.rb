@@ -2,6 +2,10 @@ require_relative "player"
 require_relative "computer"
 require_relative "save_load"
 
+INSTRUCTION_COLOUR = :green
+ERROR_COLOUR = :red
+SAVELOAD_COLOUR = :yellow
+
 # controls flow of game and checks for end of game
 class GameController
   include SaveLoad
@@ -16,23 +20,9 @@ class GameController
 
   def play
     puts "\nHi #{@player.name}, welcome to Hangman!"
-    if @player.load_game?
-      if list_files(SAVED_DIRECTORY)
-        puts "Which file would you like to load?"
-        filename = gets.chomp.to_s
-        load_file(filename)
-      else
-        put "There are no saved files. A New Game will be started"
-        @computer.new_word(@dictionary)
-      end
-    else
-      @computer.new_word(@dictionary)
-    end
-    # puts @computer.word
+    new_game?
     loop do
       prints_guess_state
-      puts "\nYou have #{@player.guess_count} more guesses"
-      puts "\nYour guesses so far: #{@player.guess_track.join(',')}"
       save_file if @player.save_game?
       @player.guess_attempt
       update_guess_state(@player.guess)
@@ -45,16 +35,30 @@ class GameController
     lines.map { |text| text.delete("\n").chars } # returns an array of words, broken down into array of characters
   end
 
+  def new_game?
+    if Dir.exist?(SAVED_DIRECTORY) && @player.load_game?
+      list_files(SAVED_DIRECTORY)
+      puts "Which file would you like to load?"
+      filename = gets.chomp.to_s
+      load_file(filename)
+    else
+      puts "A New Game will be started"
+      @computer.new_word(@dictionary)
+    end
+  end
+
   def prints_guess_state
     puts "\n #{@computer.guess_state.join(' ')}"
+    puts "\nYou have #{@player.guess_count} more guesses"
+    puts "\nYour guesses so far: #{@player.guess_track.join(',')}"
   end
 
   def update_guess_state(guess)
     match_check = false
     if guess.length == 1
-      @word.each_with_index do |char, index|
+      @computer.word.each_with_index do |char, index|
         if char == guess
-          @guess_state[index] = guess
+          @computer.guess_state[index] = guess
           match_check = true
         end
       end

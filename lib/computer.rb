@@ -12,5 +12,4 @@ class Computer
     puts "\nA new #{@word.length}-letter word has been generated:"
     @guess_state = Array.new(@word.length, "_")
   end
-
 end

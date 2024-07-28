@@ -1,5 +1,6 @@
 require "yaml"
 
+# save and load module
 module SaveLoad
   SAVED_DIRECTORY = "saved_games"
 
@@ -18,14 +19,9 @@ module SaveLoad
   end
 
   def list_files(directory)
-    if Dir.exist?(directory)
-      files = Dir.entries(directory)
-      puts "Files in #{directory}:"
-      files.each { |file| puts file }
-      true
-    else
-      false
-    end
+    files = Dir.entries(directory)
+    puts "Files in #{directory}:"
+    files.each { |file| puts file }
   end
 
   def load_file(filename)
