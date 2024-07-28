@@ -35,7 +35,7 @@ class GameController
       puts "\nYour guesses so far: #{@player.guess_track.join(',')}"
       save_file if @player.save_game?
       @player.guess_attempt
-      @computer.update_guess_state(@player.guess)
+      update_guess_state(@player.guess)
       break if gameover?
     end
   end
@@ -47,6 +47,19 @@ class GameController
 
   def prints_guess_state
     puts "\n #{@computer.guess_state.join(' ')}"
+  end
+
+  def update_guess_state(guess)
+    match_check = false
+    if guess.length == 1
+      @word.each_with_index do |char, index|
+        if char == guess
+          @guess_state[index] = guess
+          match_check = true
+        end
+      end
+    end
+    @player.guess_count -= 1 unless match_check == true
   end
 
   def gameover?

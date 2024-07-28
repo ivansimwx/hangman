@@ -13,9 +13,4 @@ class Computer
     @guess_state = Array.new(@word.length, "_")
   end
 
-  def update_guess_state(guess)
-    return unless guess.length == 1
-
-    @word.each_with_index { |char, index| @guess_state[index] = guess if char == guess }
-  end
 end
